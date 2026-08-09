@@ -15,6 +15,11 @@ and optional dependencies by calling:
 python -m pip install -v ".[dev]" 
 ```
 
+### Supported versions
+
+This project has been tested with Python 3.11–3.14.
+Supported dependency ranges are declared in `pyproject.toml`.
+
 ## Writing a `.yaml` input file for OpenCV or SAM2 detection
 
 The workflow takes as input a `.yaml` configuration file with information

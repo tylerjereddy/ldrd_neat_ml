@@ -100,7 +100,7 @@ def _detect_single_image(
         bubble_data.loc[idx] = pd.Series(bubble_data_row)
 
     num_blobs = len(keypoints)
-    median_radius = np.nanmedian(bubble_data["radius"])
+    median_radius = float(np.nanmedian(bubble_data["radius"]))
     return num_blobs, median_radius, bubble_data
 
 def _save_debug_overlay(
@@ -200,7 +200,7 @@ def run_opencv(
 
         df_bubbles = pd.DataFrame(bubble_data)
         df_bubbles.to_parquet(
-            out_dir / f"{img_path.stem}_bubble_data.parquet.gzip",
+            str(out_dir / f"{img_path.stem}_bubble_data.parquet.gzip"),
             compression="gzip")
 
         if debug:
@@ -209,4 +209,4 @@ def run_opencv(
         df_out.loc[idx, "num_blobs_opencv"] = num_blobs  # type: ignore[index]
         df_out.loc[idx, "median_radii_opencv"] = median_r  # type:ignore[index]
 
-    return df_out
+    return pd.DataFrame(df_out)

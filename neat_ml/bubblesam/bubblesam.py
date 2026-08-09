@@ -394,4 +394,4 @@ def run_bubblesam(
 
     summary.to_csv(out_dir / "bubblesam_summary.csv", index=False)
     logger.info(f"BubbleSAM processed {len(df_imgs)} images -> {out_dir}")
-    return summary
+    return pd.DataFrame(summary)

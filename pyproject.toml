@@ -1,45 +1,65 @@
 [build-system]
-requires = ["setuptools>=68.2.2",
+requires = ["setuptools>=70.1",
             "setuptools-scm>=8.0.2"]
 
 [project]
 name = "neat_ml"
 version = "0.0.1.dev0"
 dependencies = [
-    'numpy>=1.26.3',
-    'matplotlib<3.11.0',  # backwards incompatibility for image comparison tests (see issue #36)
-    'xgboost',
-    'pandas',
-    'scikit-learn',
-    'openpyxl',
-    'jinja2',
-    'python-ternary',
-    'shap',
-    'interpret',
-    'scikit-image',
-    'lightgbm',
-    'lime',
+    'numpy>=1.26.3,<2.5; python_version < "3.13"',
+    'numpy>=2.3.5,<2.5;  python_version >= "3.13"',
+    'matplotlib>=3.10.0,<3.11.0; python_version < "3.14"',
+    'matplotlib>=3.10.5,<3.11.0; python_version >= "3.14"',
+    'xgboost>=2.1.4; python_version >= "3.12"',
+    'xgboost>=2.1.4,<3.3.0; python_version < "3.12"',
+    'pandas>=2.2.3; python_version <= "3.12"',
+    'pandas>=2.3.3; python_version > "3.12"',
+    'scikit-learn>=1.5.1; python_version <= "3.12"',
+    'scikit-learn>=1.6.1; python_version == "3.13"',
+    'scikit-learn>=1.8.0; python_version >= "3.14"',
+    'openpyxl>=3.1.2',
+    'jinja2>=3.1.2',
+    'python-ternary==1.0.8',
+    'shap>=0.47.0', # for use of `rng` with `summary_plot`
+    'interpret>=0.7.0',
+    'scikit-image>=0.25.0; python_version < "3.14"',
+    'scikit-image>=0.26.0; python_version >= "3.14"',
+    'lightgbm>=4.4.0',
+    'lime==0.2.0.1',
     'opencv-python-headless==4.10.0.84',
-    'scipy',
-    'pyyaml',
-    'pooch',
-    'pyarrow',
-    'torch',
-    'torchvision',
-    'huggingface_hub',
+    'scipy>=1.15.3,!=1.17.0; python_version < "3.14"',
+    'scipy>=1.16.1,!=1.17.0; python_version >= "3.14"',
+    'pyyaml>=6.0.2',
+    'pooch>=1.9.0',
+    'pyarrow>=23.0.1',
+    'torch>=2.5.1; python_version < "3.13"',
+    'torch>=2.9.0; python_version >= "3.13"',
+    'torchvision>=0.20.1; python_version < "3.13"',
+    'torchvision>=0.24.0; python_version >= "3.13"',
+    'huggingface_hub>=1.4.1',
     'sam-2 @ git+https://github.com/facebookresearch/sam2@2b90b9f5ceec907a1c18123530e92e794ad901a4',
-    'packaging',
+    'packaging==26.2',
 ]
-[project.optional-dependencies]
-dev = ['mypy',
-       'ruff',
-       'pandas-stubs',
-       'pytest',
-       'pytest-xdist',
-       'pytest-cov',
-       'types-tqdm',
-       'types-Pillow',
-       'types-pyyaml',
+[dependency-groups]
+test = [
+    "pytest==9.1.1",
+    "pytest-xdist==3.8.0",
+    "pytest-cov==7.1.0",
+]
+lint = [
+    "ruff==0.16.2",
+]
+typecheck = [
+    "mypy==2.3.0",
+    "pandas-stubs",
+    "types-tqdm",
+    "types-Pillow",
+    "types-pyyaml",
+]
+dev = [
+    {include-group = "test"},
+    {include-group = "lint"},
+    {include-group = "typecheck"},
 ]
 [tool.setuptools.package-data]
 "neat_ml.data" = ["*.xlsx"]

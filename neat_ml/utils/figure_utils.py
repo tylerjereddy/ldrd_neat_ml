@@ -345,7 +345,7 @@ def rename_df_columns(
         the modified column variable name for plotting
         axis titles
     """
-    df_local = df.copy()
+    df_local = pd.DataFrame(df.copy())
     if "PEO" in in_col:
         out_col = in_col.replace("PEO", "PEG")
     elif in_col == "Dextran 9 - 11 kg/mol (wt%)":
